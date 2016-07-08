@@ -12,6 +12,7 @@ docker_package_info:
   pkgs:
     - name: "{{ docker_versioned_pkg[docker_version] }}"
       force: yes
+    - name: socat
 
 docker_repo_key_info:
   pkg_key: apt_key

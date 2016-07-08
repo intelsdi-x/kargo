@@ -54,6 +54,20 @@
   with_items: "{{ docker_package_info.pkgs }}"
   when: (ansible_os_family != "CoreOS") and (docker_package_info.pkgs|length > 0)
 
+- name: ensure nsenter is installed
+  copy:
+    src: "nsenter"
+    dest: "/usr/bin/nsenter"
+  when: ansible_distribution_release == "trusty"
+
+- name: ensure nsenter is installed
+  file:
+    path: "/usr/bin/nsenter"
+    owner: root
+    group: root
+    mode: "0755"
+  when: ansible_distribution_release == "trusty"
+
 - name: allow for proxies on systems using systemd
   include: systemd-proxies.yml
   when: ansible_service_mgr == "systemd" and
